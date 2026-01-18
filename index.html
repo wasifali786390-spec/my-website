@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Python Beginner Book</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#eef2f5}
+header{background:#0d47a1;color:white;text-align:center;padding:20px}
+section{max-width:900px;margin:auto;padding:30px}
+.lesson{
+background:white;padding:20px;margin:15px 0;
+border-radius:10px;cursor:pointer;
+box-shadow:0 4px 8px rgba(0,0,0,0.1)
+}
+.lesson:hover{background:#f1f1f1}
+footer{text-align:center;background:#222;color:white;padding:15px}
+
+/* Modal */
+#modal{
+display:none;position:fixed;inset:0;
+background:rgba(0,0,0,0.9);overflow:auto
+}
+#box{
+background:#111;color:white;
+max-width:900px;margin:40px auto;
+padding:30px;border-radius:10px
+}
+#close{
+background:red;color:white;border:none;
+padding:8px 12px;float:right;cursor:pointer
+}
+
+pre{background:#222;padding:15px;border-radius:5px;white-space:pre-wrap}
+textarea{
+width:100%;height:160px;background:#333;
+color:white;border:1px solid #555;padding:10px
+}
+button{
+background:#4caf50;color:white;
+border:none;padding:10px;margin-top:10px;
+border-radius:5px;cursor:pointer
+}
+.quiz{background:#222;padding:15px;border-radius:8px;margin-top:20px}
+.result{margin-top:10px;font-weight:bold}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Python Programming – Beginner Book</h1>
+<p>Learn Python step by step like a real book</p>
+</header>
+
+<section>
+<div class="lesson" data-id="1">Chapter 1: Introduction to Python</div>
+<div class="lesson" data-id="2">Chapter 2: Variables, Data Types & Operators</div>
+<div class="lesson" data-id="3">Chapter 3: Conditional Statements</div>
+<div class="lesson" data-id="4">Chapter 4: Looping Statements</div>
+<div class="lesson" data-id="5">Chapter 5: Lists</div>
+<div class="lesson" data-id="6">Chapter 6: Tuples</div>
+<div class="lesson" data-id="7">Chapter 7: Dictionaries</div>
+<div class="lesson" data-id="8">Chapter 8: Functions</div>
+</section>
+
+<footer>© 2026 Python Beginner Book</footer>
+
+<div id="modal">
+<div id="box">
+<button id="close">X</button>
+
+<h2 id="title"></h2>
+<p id="text"></p>
+
+<h3>Practice</h3>
+<textarea id="code"></textarea>
+<button onclick="run()">Run Code</button>
+<pre id="output"></pre>
+
+<div class="quiz">
+<h3>Quick Quiz</h3>
+<p id="q"></p>
+<button onclick="check(0)">A</button>
+<button onclick="check(1)">B</button>
+<button onclick="check(2)">C</button>
+<p class="result" id="res"></p>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+
+<script>
+const book={
+1:{
+title:"Chapter 1: Introduction to Python",
+text:`Python is a programming language.
+
+A programming language is a way to give instructions to a computer.
+Computers do not understand English. They only understand binary (0 and 1).
+
+Python works as a bridge between humans and computers.
+It allows us to write instructions in simple English-like words.
+
+Why Python is good for beginners:
+• Easy to read and write
+• Less symbols, more meaning
+• No complex rules
+• Used in real companies
+
+Python programs are written line by line.
+The computer reads them from top to bottom.
+
+The print() function is used to show output on the screen.`,
+code:`print("Hello, Python")
+print("Welcome to programming")`,
+quiz:{q:"Python is a ____ language.",opts:["Programming","Music","Cooking"],ans:0}
+},
+
+2:{
+title:"Chapter 2: Variables, Data Types & Operators",
+text:`A variable is used to store information.
+
+Think of a variable as a box:
+The box has a name and stores a value.
+
+Example:
+age = 16
+
+Here:
+age → variable name
+16 → value stored
+
+Data Types tell Python what type of value is stored.
+
+Common data types:
+int → whole numbers (10, 50)
+float → decimal numbers (5.6)
+str → text ("Hello")
+bool → True or False
+
+Operators are symbols used to perform actions.
++ is used for addition
+- for subtraction
+* for multiplication
+/ for division`,
+code:`age = 16
+height = 5.7
+name = "Ali"
+
+print(age)
+print(height)
+print(name)
+print(age + 4)`,
+quiz:{q:"Which data type stores text?",opts:["int","str","float"],ans:1}
+},
+
+3:{
+title:"Chapter 3: Conditional Statements",
+text:`Conditional statements allow programs to make decisions.
+
+In real life:
+IF it rains → take umbrella
+ELSE → no umbrella
+
+In Python:
+if checks a condition
+elif checks another condition
+else runs if no condition is true
+
+Important rule:
+Indentation (spaces) is compulsory in Python.
+Wrong indentation causes errors.`,
+code:`marks = 75
+
+if marks >= 60:
+    print("You passed")
+else:
+    print("You failed")`,
+quiz:{q:"Which keyword checks a condition?",opts:["if","for","print"],ans:0}
+},
+
+4:{
+title:"Chapter 4: Looping Statements",
+text:`Loops are used to repeat code.
+
+Without loops:
+Same code written again and again.
+
+With loops:
+Code runs automatically multiple times.
+
+for loop:
+Used when number of repetitions is known.
+
+while loop:
+Used when repetition depends on a condition.`,
+code:`for i in range(1,6):
+    print(i)`,
+quiz:{q:"Which loop runs based on condition?",opts:["for","while","print"],ans:1}
+},
+
+5:{
+title:"Chapter 5: Lists",
+text:`A list is used to store multiple values in one variable.
+
+Why lists are important:
+Real programs work with many values at once.
+
+Properties of lists:
+• Ordered
+• Changeable
+• Index starts from 0
+
+Index means position of value.`,
+code:`marks = [70,80,90]
+marks.append(85)
+print(marks)
+print(marks[0])`,
+quiz:{q:"List index starts from?",opts:["1","0","-1"],ans:1}
+},
+
+6:{
+title:"Chapter 6: Tuples",
+text:`Tuples are similar to lists but immutable.
+
+Immutable means:
+Once created, values cannot be changed.
+
+Why use tuples?
+• Data safety
+• Faster than lists
+
+Tuples are written using round brackets.`,
+code:`colors = ("red","green","blue")
+print(colors[1])`,
+quiz:{q:"Tuples are changeable?",opts:["Yes","No","Sometimes"],ans:1}
+},
+
+7:{
+title:"Chapter 7: Dictionaries",
+text:`Dictionaries store data as key-value pairs.
+
+Real-life example:
+Dictionary → word : meaning
+Phonebook → name : number
+
+Rules:
+• Keys must be unique
+• Values can be changed
+
+Dictionaries use curly brackets.`,
+code:`student = {
+"name":"Ali",
+"age":16
+}
+
+print(student["name"])`,
+quiz:{q:"Dictionary stores?",opts:["Keys only","Values only","Key-value pairs"],ans:2}
+},
+
+8:{
+title:"Chapter 8: Functions",
+text:`A function is a block of code that performs a task.
+
+Why functions are useful:
+• Avoid repeating code
+• Make programs clean
+• Easy to fix errors
+
+Functions are defined once and used many times.`,
+code:`def greet(name):
+    print("Hello", name)
+
+greet("Ali")
+greet("Sara")`,
+quiz:{q:"Which keyword defines a function?",opts:["def","func","method"],ans:0}
+}
+};
+
+let current=null, openedChapter=null;
+const modal=document.getElementById("modal");
+
+document.querySelectorAll(".lesson").forEach(l=>{
+l.onclick=()=>{
+const id=l.dataset.id;
+if(openedChapter===id){closeModal();return;}
+openedChapter=id;
+current=book[id];
+title.innerText=current.title;
+text.innerText=current.text;
+code.value=current.code;
+q.innerText=current.quiz.q+
+"\nA) "+current.quiz.opts[0]+
+"\nB) "+current.quiz.opts[1]+
+"\nC) "+current.quiz.opts[2];
+res.innerText="";
+output.innerText="";
+modal.style.display="block";
+};
+});
+
+function closeModal(){
+modal.style.display="none";
+openedChapter=null;
+}
+
+document.getElementById("close").onclick=closeModal;
+modal.onclick=e=>{if(e.target===modal)closeModal();};
+
+function check(i){
+res.innerText=i===current.quiz.ans?"✅ Correct":"❌ Wrong";
+}
+
+function run(){
+output.innerText="";
+Sk.configure({output:t=>output.innerText+=t+"\n",read:r});
+Sk.misceval.asyncToPromise(()=>Sk.importMainWithBody("<stdin>",false,code.value))
+.catch(e=>output.innerText=e);
+function r(x){
+if(!Sk.builtinFiles||!Sk.builtinFiles["files"][x])throw"File not found";
+return Sk.builtinFiles["files"][x];
+}
+}
+</script>
+
+</body>
+</html>
